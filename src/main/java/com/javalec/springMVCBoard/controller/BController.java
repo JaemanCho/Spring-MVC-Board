@@ -2,6 +2,8 @@ package com.javalec.springMVCBoard.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import com.javalec.springMVCBoard.service.BReplyService;
 import com.javalec.springMVCBoard.service.BReplyViewService;
 import com.javalec.springMVCBoard.service.BService;
 import com.javalec.springMVCBoard.service.BWriteService;
+import com.javalec.springMVCBoard.util.Constant;
 
 /**
  * Servlet implementation class BoardFrontController
@@ -24,6 +27,14 @@ import com.javalec.springMVCBoard.service.BWriteService;
 public class BController {
 
 	BService service = null;
+
+	public JdbcTemplate template;
+
+	@Autowired
+	public void setTemplate(JdbcTemplate template) {
+		this.template = template;
+		Constant.template = this.template;
+	}
 
 	@RequestMapping("/list")
 	public String list(Model model) {
