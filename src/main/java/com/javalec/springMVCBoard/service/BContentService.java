@@ -7,9 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 
 import com.javalec.springMVCBoard.dao.BDao;
-import com.javalec.springMVCBoard.dto.BDto;
 
-public class BContentService implements BService {
+public class BContentService extends BAbstractService {
 
 	@Override
 	public void execute(Model model) {
@@ -18,12 +17,11 @@ public class BContentService implements BService {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		String bId = request.getParameter("bId");
-		
-		BDao dao = new BDao();
-		BDto dto = dao.contentView(bId);
-		
-		model.addAttribute("content_view", dto);
-		
+
+		BDao dao = sqlSession.getMapper(BDao.class);
+		dao.upHit(bId);
+
+		model.addAttribute("content_view", dao.contentView(bId));
 	}
 
 }

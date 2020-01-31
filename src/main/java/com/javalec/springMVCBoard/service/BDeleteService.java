@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 
 import com.javalec.springMVCBoard.dao.BDao;
 
-public class BDeleteService implements BService {
+public class BDeleteService extends BAbstractService {
 
 	@Override
 	public void execute(Model model) {
@@ -17,7 +17,7 @@ public class BDeleteService implements BService {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
 		String bId = request.getParameter("bId");
-		BDao dao = new BDao();
+		BDao dao = sqlSession.getMapper(BDao.class);
 		dao.delete(bId);
 
 	}

@@ -2,8 +2,8 @@ package com.javalec.springMVCBoard.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,13 +28,14 @@ public class BController {
 
 	BService service = null;
 
-	public JdbcTemplate template;
+	public SqlSession sqlSession;
 
 	@Autowired
-	public void setTemplate(JdbcTemplate template) {
-		this.template = template;
-		Constant.template = this.template;
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+		Constant.sqlSession = this.sqlSession;
 	}
+
 
 	@RequestMapping("/list")
 	public String list(Model model) {

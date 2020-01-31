@@ -1,21 +1,17 @@
 package com.javalec.springMVCBoard.service;
 
-import java.util.ArrayList;
-
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.javalec.springMVCBoard.dao.BDao;
-import com.javalec.springMVCBoard.dto.BDto;
+import com.javalec.springMVCBoard.util.Constant;
 
-public class BListService implements BService {
+public class BListService extends BAbstractService {
 
 	@Override
 	public void execute(Model model) {
-
-		BDao dao = new BDao();
-		ArrayList<BDto> dtos = dao.list();
-		model.addAttribute("list", dtos);
-
+		BDao dao = sqlSession.getMapper(BDao.class);
+		model.addAttribute("list", dao.list());
 	}
 
 }

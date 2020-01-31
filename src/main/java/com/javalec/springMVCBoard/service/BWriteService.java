@@ -9,18 +9,17 @@ import org.springframework.ui.Model;
 import com.javalec.springMVCBoard.dao.BDao;
 
 
-public class BWriteService implements BService {
+public class BWriteService extends BAbstractService {
 
 	@Override
 	public void execute(Model model) {
-
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		String bName = request.getParameter("bName");
 		String bTitle = request.getParameter("bTitle");
 		String bContent = request.getParameter("bContent");
 
-		BDao dao = new BDao();
+		BDao dao = sqlSession.getMapper(BDao.class);
 		dao.write(bName, bTitle, bContent);
 	}
 }

@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 
 import com.javalec.springMVCBoard.dao.BDao;
 
-public class BModifyService implements BService {
+public class BModifyService extends BAbstractService {
 
 	@Override
 	public void execute(Model model) {
@@ -20,7 +20,7 @@ public class BModifyService implements BService {
 		String bTitle = request.getParameter("bTitle");
 		String bContent = request.getParameter("bContent");
 
-		BDao  dao = new BDao();
+		BDao dao = sqlSession.getMapper(BDao.class);
 		dao.modify(bId, bName, bTitle, bContent);
 
 	}
